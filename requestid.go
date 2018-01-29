@@ -2,6 +2,7 @@ package requestid
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/satori/go.uuid"
@@ -16,7 +17,12 @@ const (
 type RequestIDGen func() string
 
 func defaultIDGen() string {
-	return uuid.NewV4().String()
+	id, err := uuid.NewV4()
+	if err != nil {
+		panic(fmt.Sprintf("could not generate uuid: %s", err))
+	}
+
+	return id.String()
 }
 
 type Middleware struct {
