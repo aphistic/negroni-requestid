@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/satori/go.uuid"
+	"github.com/google/uuid"
 )
 
 type contextKey int
@@ -17,7 +17,7 @@ const (
 type RequestIDGen func() string
 
 func defaultIDGen() string {
-	id, err := uuid.NewV4()
+	id, err := uuid.NewRandom()
 	if err != nil {
 		panic(fmt.Sprintf("could not generate uuid: %s", err))
 	}
